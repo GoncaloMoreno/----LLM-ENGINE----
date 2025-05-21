@@ -1,4 +1,9 @@
-/1 DATA + CLEANUP/game_files
-/a_DATA_CLEANUP
+/a_DATA_CLEANUP/games_for_t1
+/a_DATA_CLEANUP/games_for_CLEAN
+/a_DATA_CLEANUP/lichess_1_CLEAN.txt
+/a_DATA_CLEANUP/lichess_1.txt
+/checkpoints
+/e2_TRANSFORMER/wandb
 /wandb
 /inf UNUSED
+/TRAINTOGETHER.py

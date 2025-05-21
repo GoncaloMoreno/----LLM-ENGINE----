@@ -8,11 +8,13 @@ from tqdm import tqdm
 import wandb
 import os
 import sys
+import random  # Added for shuffling
+from natsort import natsorted # Added for consistent file ordering before shuffle
 
 # Add parent directory to Python path for imports
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from transformer_model import ChessTransformerDecoder
+from transformer_model import ChessTransformerDecoder, ChessTransformerConfig
 from d_DATALOADER.my_dataloader import my_Dataset, my_collate_fn
 
 def train_epoch(model, train_loader, optimizer, criterion, device, scheduler=None, global_step=0, save_dir=None):
@@ -22,7 +24,6 @@ def train_epoch(model, train_loader, optimizer, criterion, device, scheduler=Non
     
     progress_bar = tqdm(train_loader, desc='Training')
     for batch_idx, batch in enumerate(progress_bar):
-
         # Convert batch to correct type and device
         batch = batch.long().to(device)
         
@@ -30,8 +31,14 @@ def train_epoch(model, train_loader, optimizer, criterion, device, scheduler=Non
         input_seq = batch[:, :-1]
         target_seq = batch[:, 1:]
         
-        # Forward pass
-        outputs = model(input_seq)
+        # Forward pass (model will generate mask internally after potential truncation)
+        outputs, _ = model(input_seq)
+        
+        # Debug: Print unique tokens in first batch to verify diversity
+        if batch_idx == 0:
+            unique_tokens = torch.unique(outputs.argmax(dim=-1))
+            print(f"\nUnique tokens in first batch: {unique_tokens.size(0)}")
+            print(f"Sample of predicted tokens: {outputs.argmax(dim=-1)[0, :10]}")
         
         # Ensure target sequence matches output sequence length
         if target_seq.size(1) > outputs.size(1):
@@ -146,14 +153,15 @@ def main():
         'dim_feedforward': 1024,
         'dropout': 0.1,
         'max_seq_length': 500,
-        'batch_size': 64,
+        'batch_size': 2,
         'num_epochs': 50,
         'learning_rate': 1e-4,
         'warmup_steps': 4000,
         'device': 'cuda' if torch.cuda.is_available() else 'cpu',
-        'num_workers': 2,  # Set to 0 for debugging
+        'num_workers': 0,  # Set to 0 for debugging
         'save_dir': 'checkpoints',
-        'use_wandb': True
+        'use_wandb': True,
+        'val_split_ratio': 0.1 # 10% for validation
     }
     
     # Initialize wandb
@@ -165,7 +173,7 @@ def main():
     save_dir.mkdir(exist_ok=True)
     
     # Initialize model
-    model = ChessTransformerDecoder(
+    model_config = ChessTransformerConfig(
         vocab_size=config['vocab_size'],
         d_model=config['d_model'],
         nhead=config['nhead'],
@@ -173,7 +181,8 @@ def main():
         dim_feedforward=config['dim_feedforward'],
         dropout=config['dropout'],
         max_seq_length=config['max_seq_length']
-    ).to(config['device'])
+    )
+    model = ChessTransformerDecoder(model_config).to(config['device'])
     
     # Initialize optimizer and scheduler
     optimizer = optim.AdamW(model.parameters(), lr=config['learning_rate'])
@@ -183,7 +192,7 @@ def main():
                         math.sqrt(config['warmup_steps'] / (step + 1)))
     )
     
-        # Load checkpoint if specified
+    # Load checkpoint if specified
     checkpoint_path = ''  # Update this to your checkpoint
     if os.path.exists(checkpoint_path):
         print(f"Loading checkpoint from {checkpoint_path}")
@@ -204,17 +213,60 @@ def main():
     # Initialize loss function
     criterion = nn.CrossEntropyLoss(ignore_index=0)  # ignore padding token (0)
     
+    # --- Prepare Train/Validation File Split ---
+    data_in_folder = Path('a_DATA_CLEANUP/practice_tokenized')
+    data_idx_folder = Path('a_DATA_CLEANUP/practice_maps')
+
+    print(f"\nChecking data directories:")
+    print(f"Input folder exists: {data_in_folder.exists()}")
+    print(f"Index folder exists: {data_idx_folder.exists()}")
+    
+    all_in_chunks = natsorted([f for f in data_in_folder.iterdir() if f.name.endswith('.pt')])
+    all_maps = natsorted([f for f in data_idx_folder.iterdir() if f.name.endswith('.json')])
+    
+    print(f"\nFound files:")
+    print(f"Input chunks: {[f.name for f in all_in_chunks]}")
+    print(f"Map files: {[f.name for f in all_maps]}")
+
+    if len(all_in_chunks) != len(all_maps):
+        raise ValueError("Number of input chunks and index files do not match in a_DATA_CLEANUP.")
+
+    all_chunk_map_pairs = list(zip(all_in_chunks, all_maps))
+    print(f"\nCreated {len(all_chunk_map_pairs)} chunk-map pairs")
+    
+    random.shuffle(all_chunk_map_pairs) # Shuffle all pairs
+
+    # For single file case, put it in training set
+    if len(all_chunk_map_pairs) == 1:
+        train_files = all_chunk_map_pairs
+        val_files = []
+    else:
+        split_idx = int(len(all_chunk_map_pairs) * (1 - config['val_split_ratio']))
+        # Ensure at least one file goes to training
+        split_idx = max(1, split_idx)
+        train_files = all_chunk_map_pairs[:split_idx]
+        val_files = all_chunk_map_pairs[split_idx:]
+
+    print(f"\nSplit results:")
+    print(f"Split index: {split_idx if len(all_chunk_map_pairs) > 1 else 'N/A (single file)'}")
+    print(f"Training files: {len(train_files)}")
+    print(f"Validation files: {len(val_files)}")
+
+    if not train_files:
+        raise ValueError("Training file list is empty. Check data paths and split ratio.")
+    if not val_files and len(all_chunk_map_pairs) > 1:
+        raise ValueError("Validation file list is empty. Check data paths and split ratio. You might need more data or a smaller val_split_ratio.")
+    # --- End File Split ---
+
     # Setup data loaders
     train_dataset = my_Dataset(
-        in_folder='a_DATA_CLEANUP/train_tokenized',
-        idx_folder='a_DATA_CLEANUP/train_maps',
+        chunk_map_pairs_list=train_files,
         shuffle=True
     )
     
     val_dataset = my_Dataset(
-        in_folder='a_DATA_CLEANUP/test_tokenized',  # Using same data for validation during testing
-        idx_folder='a_DATA_CLEANUP/test_maps',
-        shuffle=False
+        chunk_map_pairs_list=val_files,
+        shuffle=False  # No need to shuffle validation data
     )
     
     train_loader = DataLoader(

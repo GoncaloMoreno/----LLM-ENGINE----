@@ -9,15 +9,22 @@ from pathlib import Path
 
 class my_Dataset(IterableDataset):
 
-    def __init__(self, in_folder, idx_folder, shuffle=True):
+    def __init__(self, in_folder=None, idx_folder=None, shuffle=True, chunk_map_pairs_list=None):
         self.shuffle = shuffle
-        # chunk and map paths
-        self.in_folder = Path(in_folder) if not isinstance(in_folder, Path) else in_folder
-        self.idx_folder = Path(idx_folder) if not isinstance(idx_folder, Path) else idx_folder
-        # chunk and map variables
-        self.chunks_maps = None
-        # functions to run on init
-        self.cm_tuple()
+        
+        if chunk_map_pairs_list is not None:
+            self.chunks_maps = chunk_map_pairs_list
+            self.n_chunks = len(self.chunks_maps)
+        elif in_folder is not None and idx_folder is not None:
+            # chunk and map paths
+            self.in_folder = Path(in_folder) if not isinstance(in_folder, Path) else in_folder
+            self.idx_folder = Path(idx_folder) if not isinstance(idx_folder, Path) else idx_folder
+            # chunk and map variables
+            self.chunks_maps = None
+            # functions to run on init
+            self.cm_tuple()
+        else:
+            raise ValueError("Either (in_folder and idx_folder) or chunk_map_pairs_list must be provided.")
 
     def cm_tuple(self):   # chunk-maps tuples
         in_chunks = natsorted([f for f in self.in_folder.iterdir() if '.pt' in str(f)])   # list of chunk paths (without game_counts)
@@ -109,6 +116,7 @@ class my_Dataset(IterableDataset):
 from torch.nn.utils.rnn import pad_sequence
 
 def my_collate_fn(batch):
-    games = [tensor for tensor in batch]  # list of game tensors
+    # Truncate sequences longer than 550 tokens
+    games = [tensor[:550] for tensor in batch]  # list of game tensors, truncated to 550
     games = pad_sequence(games, batch_first=True, padding_value=0)  # pad to max length in batch
     return games

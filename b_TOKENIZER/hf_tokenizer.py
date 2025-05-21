@@ -17,7 +17,7 @@ tokenizer.decoder = ByteLevelDecoder()
 
 trainer = trainers.BpeTrainer(
     vocab_size=2048,
-    special_tokens=["<PAD>", "<MASK>", "<S>", "<UNK>"]
+    special_tokens=["<S>", "<UNK>"] # ,"<MASK>", "<S>", ]
 )
 
 # --- Generator that yields lines with progress ---
@@ -28,21 +28,24 @@ def line_generator_with_progress(file_paths):
                 yield line.strip()
 
 #--- Files ---
-files = [
-    r"C:\Users\moren\Desktop\Masters\--- LLM ENGINE ---\1 DATA + CLEANUP\game_files\lichess_1.txt",
-    r"C:\Users\moren\Desktop\Masters\--- LLM ENGINE ---\1 DATA + CLEANUP\game_files\lichess_2.txt",
-    r"C:\Users\moren\Desktop\Masters\--- LLM ENGINE ---\1 DATA + CLEANUP\game_files\lichess_3.txt",
-    r"C:\Users\moren\Desktop\Masters\--- LLM ENGINE ---\1 DATA + CLEANUP\game_files\lichess_4.txt"
-]
+
+files = [r'a_DATA_CLEANUP\lichess_1_CLEAN.txt']
+
+# files = [
+#     r"C:\Users\moren\Desktop\Masters\--- LLM ENGINE ---\1 DATA + CLEANUP\game_files\lichess_1.txt",
+#     r"C:\Users\moren\Desktop\Masters\--- LLM ENGINE ---\1 DATA + CLEANUP\game_files\lichess_2.txt",
+#     r"C:\Users\moren\Desktop\Masters\--- LLM ENGINE ---\1 DATA + CLEANUP\game_files\lichess_3.txt",
+#     r"C:\Users\moren\Desktop\Masters\--- LLM ENGINE ---\1 DATA + CLEANUP\game_files\lichess_4.txt"
+# ]
 
 # for testing easily
 #files = [r"C:\Users\moren\Desktop\Masters\--- LLM ENGINE ---\1 DATA + CLEANUP\game_files\chunk_1.txt"]
 
 # --- Get total line count (optional but cleaner progress) ---
-total_lines = 100152321 # should be 100412379(?) oops
+total_lines = 25000000 #100152321 # should be 100412379(?) oops
 
 # --- Train tokenizer ---
 tokenizer.train_from_iterator(line_generator_with_progress(files), trainer=trainer, length=total_lines)
 
 # --- Save ---
-tokenizer.save("chess_tokenizer.json")
+tokenizer.save("chess_tokenizer_CLEAN.json")

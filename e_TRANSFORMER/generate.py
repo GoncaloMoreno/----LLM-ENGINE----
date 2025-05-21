@@ -5,7 +5,7 @@ import sys
 # Add parent directory to Python path for imports
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from e_TRANSFORMER.transformer_model import ChessTransformerDecoder
+from e_TRANSFORMER.transformer_model import ChessTransformerDecoder, ChessTransformerConfig
 from tokenizers import Tokenizer
 from pathlib import Path
 import argparse
@@ -16,34 +16,36 @@ def load_model(checkpoint_path, device):
     
     # If config is not in checkpoint, use default values
     if 'config' not in checkpoint:
-        config = {
-            'vocab_size': 852,  # Default vocab size
-            'd_model': 128,
-            'nhead': 8,
-            'num_decoder_layers': 2,
-            'dim_feedforward': 1024,
-            'dropout': 0.1,
-            'max_seq_length': 600
-        }
+        model_config = ChessTransformerConfig(
+            vocab_size=852,  # Default vocab size
+            d_model=128,
+            nhead=8,
+            num_decoder_layers=2,
+            dim_feedforward=1024,
+            dropout=0.1,
+            max_seq_length=600
+        )
     else:
-        config = checkpoint['config']
+        # Convert dictionary config to ChessTransformerConfig
+        config_dict = checkpoint['config']
+        model_config = ChessTransformerConfig(
+            vocab_size=config_dict['vocab_size'],
+            d_model=config_dict['d_model'],
+            nhead=config_dict['nhead'],
+            num_decoder_layers=config_dict['num_decoder_layers'],
+            dim_feedforward=config_dict['dim_feedforward'],
+            dropout=config_dict['dropout'],
+            max_seq_length=config_dict['max_seq_length']
+        )
     
     # Initialize model with config
-    model = ChessTransformerDecoder(
-        vocab_size=config['vocab_size'],
-        d_model=config['d_model'],
-        nhead=config['nhead'],
-        num_decoder_layers=config['num_decoder_layers'],
-        dim_feedforward=config['dim_feedforward'],
-        dropout=config['dropout'],
-        max_seq_length=config['max_seq_length']
-    ).to(device)
+    model = ChessTransformerDecoder(model_config).to(device)
     
     # Load model state
     model.load_state_dict(checkpoint['model_state_dict'])
     model.eval()
     
-    return model, config
+    return model, model_config
 
 def generate_games(
     model,
@@ -63,10 +65,9 @@ def generate_games(
     with torch.no_grad():
         generated = model.generate(
             start_tokens=start_tokens,
-            max_length=max_length,
+            max_new_tokens=max_length,
             temperature=temperature,
-            top_k=top_k,
-            top_p=top_p
+            top_k=top_k
         )
     
     # Decode generated sequences
@@ -102,10 +103,9 @@ def generate_continuation(
     with torch.no_grad():
         generated = model.generate(
             start_tokens=start_tokens,
-            max_length=len(start_tokens[0]) + num_tokens,
+            max_new_tokens=num_tokens,
             temperature=temperature,
-            top_k=top_k,
-            top_p=top_p
+            top_k=top_k
         )
     
     # Get only the new tokens
