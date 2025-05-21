@@ -1,4 +1,5 @@
 very subpar vibe-coded llm, completely adapted from karpathy's nanoGPT (https://github.com/karpathy/nanoGPT) that plays chess
+
 there's some useless files that i'm keeping for memory, and there's also some ipynbs that were just for tests
 
 process:
