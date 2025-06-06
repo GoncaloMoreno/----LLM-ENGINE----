@@ -1,0 +1,51 @@
+GameID,Transformer_Color,PGN,NumMoves,Result
+1,White,1.c3 e5 2.d4 d5 3.Nf3 b5 4.b3 h5 5.Bb2 Bh3,6,*
+2,Black,1.c4 e5 2.h3 Nc6 3.g4 h6 4.d4 Nf6 5.f3 Bc5 6.Bg5 d6 7.Bc1 Bxb4 8.Nc3 d5 9.Bf4 Be6 10.Bg3 h5 11.Qa4 Ne4 12.a3 Rxh6 13.cxd5 Kd7 14.Bf2 b5 15.Be3 a5 16.Rd1,16,*
+3,White,1.c4 d5 2.cxd5 Be6 3.Nc3 a5 4.d3 f6 5.Nf3 b5 6.e3 Qd6 7.g3 Qxg3 8.Be2 h6,9,*
+4,Black,1.g3 d5 2.Bg2 Nc6 3.Nh3 e5 4.Be4 b5 5.Bd3 Bb7 6.Bf5 Nd4 7.Bd7+ Ke7 8.g4 e4 9.c4,9,*
+5,White,1.e4 b6 2.Bc4 e6 3.Nc3 d6 4.Nf3 Nd7 5.d3 a6 6.Be3 g5 7.Nd4 Ngf6 8.a3 Nxe4 9.Nxe4 e5 10.f4 Qe7 11.b3 Qf6 12.b4 Rb8 13.Nd2 Qd8,14,*
+6,Black,1.a4 c5 2.h3 Nc6 3.g4 Nf6 4.Nf3 e6 5.e4 d5 6.b3 b6 7.Ra3 c4 8.Bxc4 Rb8 9.d3 Nd4 10.Ng1,10,*
+7,White,1.e4 Nf6 2.d4 Ng8 3.Nc3 g6 4.f4 a6 5.Nf3 e6 6.Be2 Ra7,7,*
+8,Black,1.a3 e5 2.b3 Nf6 3.g4 d6 4.Nc3 c6 5.h3 Be7 6.d4 c5 7.dxe5 dxe5 8.Bg2 Nxe4 9.Kf1 Be6 10.b4 h6 11.Ra2 Rg8 12.Qe1 f6 13.g5,13,*
+9,White,1.d4 b5 2.e3 a5 3.Bd2 Na6 4.h4 a4 5.Nc3 a3 6.bxa3 d6 7.g4 Bd7 8.g5 Ra7 9.d5 Qc8,10,*
+10,Black,1.g4 e5 2.Na3 Nc6 3.Nc4 Bc5 4.Nf3 d6 5.a3 Bg4 6.Ng5 Be6 7.Bg2 Nf6 8.Ne4 Ne4+ 9.Bh3 Nxd4 10.b4 f6 11.Rg1 b5 12.f4,12,*
+11,White,1.d4 b5 2.c4 Nf6 3.Nc3 g6 4.g3 e6 5.Bg2 e5 6.e4 c6 7.Nge2 Bg7 8.a3 h5 9.b4 Ng8 10.Qd2 Qh4 11.g4 Nf6 12.Rg1 g5,13,*
+12,Black,1.a4 Nf6 2.f3 g6 3.Ra2 Bg7 4.Nh3 c6 5.d3 d6 6.Bg5 e5 7.Bf4 Nxe4 8.g4 h6 9.Ng1 h5 10.Bd2 Nf6 11.Bh3,11,*
+13,White,1.e4 Nc6 2.d4 Nf6 3.Nc3 g6 4.Bd3 d5 5.f4 dxe4 6.Bxe4 h5 7.h3 Nh7 8.d5 Kd7,9,*
+14,Black,1.Nc3 d5 2.h3 e6 3.a3 c6 4.Nb1 Nf6 5.Rh2 Be7 6.c3,6,*
+15,White,1.e4 h5 2.d4 d6 3.Nc3 Qd7 4.Nf3 Qd8 5.Be2 Nf6 6.a3 a5 7.b4 b6,8,*
+16,Black,1.Na3 e5 2.f3 d6 3.d4 Nf6 4.h4 d5 5.Rh3 e4 6.g4 c6 7.Rg3 Bd6 8.e3,8,*
+17,White,1.g3 e5 2.Bg2 Bc5 3.Nc3 Kf8 4.Nf3 g6 5.d3 b6 6.Nd5 Bd6 7.e4 Bb7 8.h4 Ba3 9.Nf4 Bd6,10,*
+18,Black,1.Nf3 c5 2.e4 Nc6 3.Qe2 Nf6 4.Rg1 e6 5.d3 d6 6.Bh6 Rg8 7.Nd4 Nd4+ 8.Na3,8,*
+19,White,1.d4 e5 2.Bf4 Qe7 3.e3 a5 4.Nc3 Qd8 5.Bd3 exd4 6.exd4 Nh6 7.Bf5 Bd6 8.Bd6 Na6,9,*
+20,Black,1.f4 d5 2.d3 Nc6 3.Be3 e5 4.Kf2 Nf6 5.b4 Bb4 6.Kf3 g6 7.Bd2 Bd2 8.c3,8,*
+21,White,1.b3 Nc6 2.Bb2 Na5 3.e3 Nh6 4.e4 g6 5.h4 b5 6.f4 d5 7.d3 Nb7,8,*
+22,Black,1.c4 Nf6 2.Nh3 e6 3.d4 d5 4.Nf4 Nc6 5.Rg1 Bd6 6.Rh1 Be7 7.f3 Ne5 8.Qb3,8,*
+23,White,1.g3 d6 2.Bg2 a5 3.e4 Nd7 4.c3 b6 5.f3 Nb8,6,*
+24,Black,1.b4 d5 2.c3 Nc6 3.e3 Bf5 4.Bd3 e6 5.Kf1 Ngf6 6.h4 Ne4 7.g4 Be7 8.Bb2 Qd7 9.Qa4,9,*
+25,White,1.e4 Na6 2.d4 h5 3.Nf3 Nc5 4.Be2 Na4,5,*
+26,Black,1.d4 Nf6 2.Bh6 g6 3.Bc1 Bg7 4.c3 d6 5.Be3,5,*
+27,White,1.d4 Na6 2.d5 e5 3.e4 g5 4.d6 Bxd6 5.c3 Ke7 6.a4 Nb4 7.b3 Rb8,8,*
+28,Black,1.f4 c6 2.b3 d5 3.Nh3 e6 4.Ng1 e5 5.c3 Be6 6.b4 a6 7.Qb3 a5 8.fxe5 Be7 9.Kd1 f6 10.Nf3,10,*
+29,White,1.e4 b5 2.Nf3 Na6 3.Bc4 d5 4.c3 Nb4 5.e5 Nc2+ 6.Kf1 e6 7.Bd3 Bb7 8.g4 Qb8,9,*
+30,Black,1.g4 Nf6 2.e3 c5 3.Qe2 d5 4.f3 e6 5.a3 Nc6 6.Qd1 Be7 7.f4 Bd6 8.h3 g6 9.Nf3 e5 10.f5 Ke7 11.fxg6 fxg6 12.Nd4 Nd4+ 13.b3 b5 14.Bc4 Ke6 15.O-O,15,*
+31,White,1.d4 Nh6 2.Nf3 Nf5 3.e3 d6 4.Nc3 Be6 5.Be2 a5 6.Bd3 g6,7,*
+32,Black,1.a3 e5 2.h4 Be7 3.Nf3 Nf6 4.c3 Nc6 5.d3 e4 6.Rh3 Nxe5 7.Bd2 Nf3 8.exf3 exf3+ 9.Qb3 d5 10.Be3 Bg4 11.Bc1 h5 12.a4,12,*
+33,White,1.c4 e6 2.Nc3 g6 3.Nf3 f5 4.g3 Qg5 5.Bg2 Qe7 6.e3 b5 7.Nxe4 a6 8.Nc3 Kf7 9.Ke2 h5 10.e4 Qa3 11.c5 Nh6,12,*
+34,Black,1.Na3 d5 2.c4 c6 3.e4 Nf6 4.Rb1 b6 5.Qb3 Bb7 6.Qc2 e6 7.Ne2 Be7 8.Nc3 b5 9.Nd1 Bc5 10.Be2 Bxf2 11.Nxf2 h5 12.Rf1,12,*
+35,White,1.Nc3 Nc6 2.g3 e5 3.Bg2 Qf6 4.e4 Nh6,5,*
+36,Black,1.c4 g6 2.b4 Bg7 3.d3 d6 4.Be3 e6 5.Bc1 Nf6 6.a3 c6 7.Qc2 Nxe4 8.h3 Kd7 9.c5 Ng5 10.Rh2 e5 11.Bf4,11,*
+37,White,1.g3 c5 2.Bg2 Na6 3.f3 Qb6 4.d3 g6 5.e4 Nb4 6.c3 e5 7.a3 Nxd3+ 8.Kxd2 Nf6,9,*
+38,Black,1.Na3 e5 2.Rb1 d5 3.d3 Nf6 4.c3 Nc6 5.Nc4 Kd7 6.e4 Nxe4 7.Nd2 Nd2 8.Qf3 e4 9.Qxe4 Rg8 10.Qa4,10,*
+39,White,1.e4 e5 2.Nf3 h5 3.Bc4 Rh6 4.d4 Ne7 5.Be6 Nbc6,6,*
+40,Black,1.a3 e5 2.Ra2 Nf6 3.e3 Nc6 4.Ne2 e4 5.a4 a6 6.d3 Nd5 7.h3,7,*
+41,White,1.Nc3 c5 2.Nf3 h6 3.g3 c4 4.Bg2 Qa5 5.d3 Qd8 6.e3 d5 7.a3 e6 8.Qe2 Bd7 9.d4 Qh4,10,*
+42,Black,1.f3 e5 2.h4 Nf6 3.g4 Ng4 4.c4 d5 5.h5 Bf5 6.e4 Bb4 7.Qb3 Bxc3 8.Be2,8,*
+43,White,1.d4 a6 2.c4 c6 3.Nf3 b6 4.Nc3 Nh6 5.b3 f5 6.Bg5 a5 7.e3 Na6 8.Be2 Ra7 9.e4 fxe4 10.Nxe4 Ra8,11,*
+44,Black,1.Nc3 e5 2.e3 Nc6 3.Nf3 Nf6 4.g4 Bc5 5.g5 b6 6.gxf6 b5 7.Nh4 g5 8.Nd5 g4 9.Nxc7+,9,*
+45,White,1.e4 Nf6 2.d4 d6 3.Nc3 c5 4.d5 h5 5.Be3 Qb6 6.Nge2 Bh3 7.g3 e6 8.Bd2 Rg8 9.g4 Kd7,10,*
+46,Black,1.Na3 e5 2.Nf3 d5 3.h3 c6 4.b4 h6 5.Bb2 Nd7 6.Nd4 h5 7.f4 g5 8.Nf3 e4 9.Nc4 b5 10.Bxh8 Bxh6 11.Rg1 Ne5 12.Ne3 Nf6 13.Rc1,13,*
+47,White,1.c4 f6 2.Nf3 g6 3.d4 f5 4.g4 h5 5.Bg2 c5 6.e3 Bg7 7.a3 Rh6 8.b3 g5 9.Bb2 hxg4 10.Ne5 Qb6,11,*
+48,Black,1.Na3 c5 2.f3 Nc6 3.Nb1 g6 4.g3 Bg7 5.Nh3 d6 6.Kf2 e6 7.c4 Nf6 8.Nf4 Rg8 9.a4 Ng4 10.Ke1,10,*
+49,White,1.e4 a5 2.Bc4 b6 3.d3 Ba6 4.Nf3 Bc8 5.d4 c5 6.Qe2 e5 7.Be3 Ke7 8.Nc3 exd4 9.Nxd4 Kd6 10.Nf5 Ke5 11.h4 Bb7,12,*
+50,Black,1.Nf3 g6 2.Nc3 Bg7 3.Na4 d6 4.h3 h5 5.Rg1 e6 6.g4 c5 7.Bg2 d5 8.d4 Nc6 9.Bd2,9,*

@@ -23,7 +23,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from .nanomodel_chess import GPTConfig, GPT
 
 # --- User Configuration ---
-CHECKPOINT_PATH = r"E:\LLM_ENGINE\checkpoints\CLEANModels\L1_1506.pt"  # Set to None for random init
+CHECKPOINT_PATH = r"E:\LLM_ENGINE\checkpoints\CLEANXLModels\L1_5063.pt"  # Set to None for random init
 START_SEQUENCE = "<S>"  # Your input sequence in plain text
 NUM_TOKENS = 50  # Number of new tokens to generate
 TEMPERATURE = 1.0  # Sampling temperature (higher = more random)
@@ -32,9 +32,17 @@ TOP_K = 50  # Top-k sampling (None = no limit, 0 = no limit)
 # --- Model and Tokenizer Configuration (should generally match training) ---
 BLOCK_SIZE = 550
 VOCAB_SIZE = 530 # From your tokenizer
+
+# Small Model
 N_LAYER = 8
 N_HEAD = 8
 N_EMBD = 512
+
+# XL Model
+# N_LAYER = 14 #8
+# N_HEAD = 12 #8
+# N_EMBD = 768 #512
+
 DROPOUT = 0.1
 BIAS = True
 TOKENIZER_FILE = "chess_tokenizer_CLEAN.json" # Relative to b_TOKENIZER directory
@@ -138,6 +146,7 @@ def play(sequence="<S>", num_tokens=10, temperature=1.0, top_k=50, checkpoint_pa
     # Set default checkpoint if none provided
     if checkpoint_path is None:
         checkpoint_path = r"E:\LLM_ENGINE\checkpoints\CLEANModels\L1_1506.pt"
+        #checkpoint_path = r"E:\LLM_ENGINE\checkpoints\CLEANXLModels\L1_5063.pt"
     
     # Load model and tokenizer
     model = load_model(checkpoint_path)
